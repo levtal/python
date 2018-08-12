@@ -1,0 +1,7 @@
+
+1. Create a GUI in Qt Designer and save the design. (e.g. dialog.ui”)
+ 
+2. Run pyuic5.bat, taking dialog.ui” as input and outputting dialog.py”:
+      pyuic5 -x dialog.ui -o dialog.py   #translate *.ui file to *.py file
+ 
+3. Create/modify your Python script to import the class from “secondgui.py”

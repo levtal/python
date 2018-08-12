@@ -1,0 +1,105 @@
+
+https://www.youtube.com/watch?v=QjICgmk31js&index=1&list=PLGLfVvz_LVvTsslWD1HBQEjBbmAaAF9Xy
+
+SQLite3 Cheat Sheet
+
+//
+sqlite3 test.db // In terminal : open sqlite and provide a database name
+ 
+// Creates a table in the database
+// Primary Key automatically generates values 
+// that start at 1 and increase by 1
+// name = text field that hold employee names
+ 
+ 
+create table employees (id integer primary key, name text);
+ 
+// Insert some employees
+ insert into employees (id, name)  values(1, 'Max Eisenhardt');
+ insert into employees (name) values('Pietro Maximoff');
+ insert into employees (name) values('Wanda Maximoff');
+ insert into employees (name) values('Mortimer Toynbee');
+ insert into employees (name) values('Jason Wyngarde');
+
+ // In column mode, each record is shown on a separate line with the data aligned in columns
+ // headers on shows the column names, if off they wouldn't show
+ .mode column
+ .headers on
+ 
+  select * from employees; // Show all employees
+
+  .width 15 20  // Changes the width of the columns
+  select * from employees;/ Show all employees in the new width 
+ .exit // Closes the database
+ 
+ //--------------------------------------
+  sqlite3 test.db // Reopen database
+ .tables // Displays the tables
+
+ 
+ .mode line       // Displays every value on its own line
+ select * from employees;
+
+ 
+ .schema    //Shows the statements used to create the database.
+ .schema employees    //   how that single table was made
+ 
+
+ // You can get a more detailed database view
+ .mode column  
+ .headers on
+ select type, name, tbl_name, sql from sqlite_master order by type;
+ 
+ 	
+ .show // Used to show the current settings
+
+.nullvalue 'NULL'  // Set NULL to 'NULL'
+.show
+ 
+.prompt 'sqlite3>' // Change the prompt for SQLite
+.show
+
+.dump	// Used to export database into SQL format on the screen
+ 
+	// Used to output to a file
+ .output ./Documents/sqlite3Files/employees.sql
+ .dump
+ 
+ .output stdout // Restores output to the screen
+ 
+  drop table employees;   //  delete a table  
+ 
+ // You can import the table then with
+ 
+ .read ./Documents/sqlite3Files/employees.sql
+ 
+ // .mode is used to change the formatting of the output
+ // OPTIONS FOR MODE : column, csv
+ // html: html table
+ // insert: insert commands used
+ // list: List without commas
+ // tabs: Tab separated list
+ // How to output a CSV list to a file
+ 
+ .mode csv // define the output should be csv
+ .separator ,  // OR define the separator for the columns
+ .output ./Documents/sqlite3Files/employees.csv
+ .separator ,
+ 
+  select * from employees;
+ .output stdout
+ 
+ .mode html // Output html table
+ select * from employees;
+ .output stdout
+
+ 
+.mode line  // line outputs column name and value
+select * from employees;
+.output stdout
+
+ 
+// Items with double quotes	.mode tcl
+
+select * from employees;
+.output stdout
