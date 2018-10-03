@@ -40,3 +40,5 @@ aList = list(aTuple)
 # Get max and minimum value
 print("Min :", min(aTuple))
 print("Max :", max(aTuple))
+
+print "this is a tuple: %s" % (aTuple,)
