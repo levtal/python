@@ -26,3 +26,13 @@ print("Third value of deaths column = %r" % df['TB deaths'].iloc[2])
 col_list = ['Country', 'TB deaths']
 co_de = df[col_list].head(8)
 print(co_de)
+# countries where the Population (1000s) is less than or equal to 50000 or
+#  TB deaths are greater  than or equal to 20000
+
+
+print('Countries:Population (1000s) <= 50000 or TB deaths > 20000')
+r = (df['Population (1000s)'] > 5000) & (df['TB deaths'] > 20000)
+# r Contains only  true and false
+print(df[r])# df[r] is a new data frame. Only the True reault is printed
+r = (df['Country'] >= 'Suriname') & (df['Country'] <= 'Togo')
+print(df[r])
