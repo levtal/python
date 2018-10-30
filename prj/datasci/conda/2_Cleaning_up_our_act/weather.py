@@ -40,6 +40,7 @@ print(london.isnull().sum()) #num of missing observations
 london['Events'] = london['Events'].fillna('')
 print(london[london['Events'].isnull()])# This will print empty  dataframe
 print(london.dtypes)# dataframe’s dtypes attribute
+
 #  Changing the data type of the 'WindDirDegrees' column
 
 # The read_csv() method has interpreted the values in the
@@ -53,5 +54,38 @@ print(london.dtypes)# dataframe’s dtypes attribute
 london['WindDirDegrees'] = london['WindDirDegrees'].astype('int64')
 print('Rows where the wind direction is greater than 350 degrees’')
 print(london[london['WindDirDegrees'] > 350])
+# elect the rows where the direction is greater than or equal to 350
+# or smaller than or equal to 10
+wind_deg = london['WindDirDegrees']
+start = 350
+end = 10
+north = london[(wind_deg >= start) | (wind_deg <= end)]
+print()
+print('direction is >= 350 or <= to 10')
+print(north)
 
-#Changing the data type of the 'GMT' column
+
+
+# Changing the data type of the 'GMT' column
+# convert a column of object (string) values such as those in the
+# 'GMT' column into values of a proper  date type called datetime64
+london['GMT'] = to_datetime(london['GMT'])
+# Display the types of all the columns again so we
+# can check the changes have been made.
+print(london.dtypes)
+
+# Return the row where the date is 4 June 2014
+print()
+print("Rows where the date is 4 June 2014")
+'''
+‘2014-1-3’ is a string and the values in the 
+‘GMT’ column are of type datetime64.  So we
+create a datetime64 value using the datetime() function like this:
+datetime(2014, 6, 4)
+'''
+dat = datetime(2014, 6, 4)
+print(london[london['GMT'] == dat])
+# Return all the rows where the date is between 8 December 2014
+# and 12 December 2014’
+print (london[(london['GMT'] >= datetime(2014, 12, 8))
+      & (london['GMT'] <= datetime(2014, 12, 12))])
