@@ -33,6 +33,6 @@ print(co_de)
 print('Countries:Population (1000s) <= 50000 or TB deaths > 20000')
 r = (df['Population (1000s)'] > 5000) & (df['TB deaths'] > 20000)
 # r Contains only  true and false
-print(df[r])# df[r] is a new data frame. Only the True reault is printed
+print(df[r])#  df[r] is a new data frame.   Only the True reault is printed
 r = (df['Country'] >= 'Suriname') & (df['Country'] <= 'Togo')
 print(df[r])
