@@ -85,7 +85,21 @@ datetime(2014, 6, 4)
 '''
 dat = datetime(2014, 6, 4)
 print(london[london['GMT'] == dat])
-# Return all the rows where the date is between 8 December 2014
+# Return all the rows where the    date is between 8 December 2014
 # and 12 December 2014’
 print (london[(london['GMT'] >= datetime(2014, 12, 8))
-      & (london['GMT'] <= datetime(2014, 12, 12))])
+& (london['GMT'] <= datetime(2014, 12, 12))])
+
+# Changing column 'GMT'  index to datetime64 values
+london.index = london['GMT']
+#Display the first 2 rows
+print(london.head(2))
+print('Get  the [2014, 1, 1]row using the dataframe’s ix (index) ')
+print(london.ix[datetime(2014, 1, 1)])
+print()
+print('Rows where the date is between 8 December and 12 December')
+print(london.ix[datetime(2014,12,8) :  datetime(2014,12,12)])
+print()
+londonSpring = london.loc[datetime(2014,3,1) : datetime(2014,5,31)]
+londonSpring['Mean Humidity'].plot(grid=True, figsize=(10,5))
+print()
