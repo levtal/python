@@ -132,3 +132,30 @@ c = milk_imports_grouped['Trade Value (US$)'].aggregate(sum)
 print("\n  2:aggregate(sum):\n\n", c )
 
 # Finding top ranked elements within a group
+milk_countries_imports_totals = \
+    milk_countries_imports.groupby('Partner')[['Trade Value (US$)']].aggregate(sum)
+c = milk_countries_imports_totals.sort_values('Trade Value (US$)', ascending=False).head()
+print("\n  milk_countries_imports_totals.sort_values :\n\n", c )
+
+'''
+Generating simple charts
+
+One of the useful features of the aggregate() method is that it 
+returns an object that can be plotted from directly, in 
+this example a horizontal bar chart.
+
+
+'''
+import matplotlib.pyplot as plt
+milk_imports_grouped['Trade Value (US$)'].aggregate(sum).plot(kind='barh')
+plt.show()
+
+'''
+Generating alternative groupings
+
+Reports can also be generated to show the total imports per month 
+for each commodity: group on commodity, trade flow and period,
+ and then sum the trade values contained within each group.
+'''
+monthlies = milk_countries_imports.groupby(['Commodity','Trade Flow','Period'])['Trade Value (US$)'].aggregate(sum)
+print("\n *********     monthlies :\n\n", monthlies)
