@@ -139,12 +139,9 @@ print("\n  milk_countries_imports_totals.sort_values :\n\n", c )
 
 '''
 Generating simple charts
-
 One of the useful features of the aggregate() method is that it 
 returns an object that can be plotted from directly, in 
 this example a horizontal bar chart.
-
-
 '''
 import matplotlib.pyplot as plt
 milk_imports_grouped['Trade Value (US$)'].aggregate(sum).plot(kind='barh')
@@ -152,10 +149,66 @@ plt.show()
 
 '''
 Generating alternative groupings
-
 Reports can also be generated to show the total imports per month 
 for each commodity: group on commodity, trade flow and period,
  and then sum the trade values contained within each group.
 '''
 monthlies = milk_countries_imports.groupby(['Commodity','Trade Flow','Period'])['Trade Value (US$)'].aggregate(sum)
 print("\n *********     monthlies :\n\n", monthlies)
+
+'''
+ Generating several aggregation values at the same time
+
+To generate several aggregate reports in a single line of code, provide 
+a list of several aggregating  operations to the aggregate() method:
+'''
+from numpy import mean
+
+GROUPING_COMMFLOWPERIOD=['Commodity','Trade Flow','Period']
+c = milk_countries.groupby(GROUPING_COMMFLOWPERIOD)['Trade Value (US$)'].aggregate([sum, min, max, mean])
+print("\n several aggregate reports +++:\n\n", monthlies)
+
+#For example, plot the maximum value by month across each code/period
+# combination to
+# see which month saw the maximum peak flow of imports from a single partner.
+milk_countries_imports.groupby(['Commodity Code','Period'])['Trade Value (US$)'].aggregate(max).plot(kind='barh')
+plt.show()
+
+# Exercise 4: Filtering groups
+
+'''
+If you have a large dataset that can be split into multiple groups 
+but for which you only want to report on groups that have a particular 
+property, the filter() method can be used to apply a test to a group and 
+only return rows from groups that pass a particular group-wide test. 
+If the test evaluates as False, the rows included in that group will be ignored.
+'''
+# Df is a new  dataframe
+df = DataFrame({'Commodity' : ['Fish', 'Milk', 'Eggs', 'Fish', 'Milk'],
+                'Trade Flow' : ['Import', 'Import', 'Import', 'Export','Export'],
+                'Value' : [1,2,4,8,16]})
+
+print("\n filter():\n\n", df)
+
+# In the following case, group by trade flow and only return rows
+# from groups containing three or more rows.
+def groupsOfThreeOrMoreRows(g):
+    print("\n groupsOfThreeOrMoreRows :\n\n",g)
+    return len(g) >= 3
+
+c = df.groupby('Trade Flow').filter(groupsOfThreeOrMoreRows)
+
+print("\n filter  3:\n\n", c )
+
+#Select just those commodities where the sum of import and export values
+# is greater than a certain amount to indicate which ones have a large
+# value of trade, in whatever direction,
+# associated with them.
+#  First group by the commodity, then filter on the group property of interest.
+
+def groupsWithValueGreaterThanFive(g):
+    return g['Value'].sum() > 5
+
+c = df.groupby('Commodity').filter(groupsWithValueGreaterThanFive)
+
+print("\n filter  5:\n\n", c )
