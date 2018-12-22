@@ -1,7 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
 
-word ='divergence'
+'''
+ Can't run in Windows console.
+ Windows console font does not support unicode.
+'''
+#get a translation from English to hebrew
+word ='soup'
 url = 'http://www.morfix.co.il/'+ word
 try:
     source = requests.get(url).text
@@ -15,3 +20,16 @@ try:
 except Exception as e:
     out  = None  #No p tab
 print(out)
+
+tr = soup.find('div',class_="translate_box_en box heWord0")
+try:
+    out = tr.p.text
+except Exception as e:
+    out  = None
+print(out)
+
+try:
+    out = soup.find('div',class_="NoResultsSuggestNewTranslation").text
+    print('Word Not Found!')
+except Exception as e:
+    out  = None  #No p tab
