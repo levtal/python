@@ -6,7 +6,7 @@ import requests
  Windows console font does not support unicode.
 '''
 #get a translation from English to hebrew
-word ='soup'
+word ='div'
 url = 'http://www.morfix.co.il/'+ word
 try:
     source = requests.get(url).text
