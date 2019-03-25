@@ -1,13 +1,9 @@
-#!/usr/bin/python
+#https://developers.arcgis.com/python/
 
-import requests
-import re
 
-headers = {
-	'User-Agent': 'Googlebot-Image/1.0 - Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-}
+from arcgis.gis import GIS
 
-r = requests.get('http://2018shell1.picoctf.com:53383/flag', headers=headers)
-source = r.text
-print(source)
-#print re.findall(r'(picoCTF\{.+\})', source)[0]
+# Create an anonymous connection to ArcGIS Online
+arcgis_online = GIS()
+hurricane_pts = arcgis_online.content.search("Hurricane_tracks_points AND owner:atma.mani", "Feature Layer")[0]
+hurricane_pts
