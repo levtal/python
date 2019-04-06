@@ -1,16 +1,18 @@
-# app.py
-import sys
-from PyQt5.QtWidgets import QDialog, QApplication
-from dialog import MyDialog  # 'MyDialog' is the class name in  'dialog.py'
-
-class AppWindow(QDialog):  
-    def __init__(self):
-        super().__init__()
-        self.ui = MyDialog() # 'MyDialog' is the class name  in  'dialog.py'
-        self.ui.setupUi(self)
-        self.show()  
-
-app = QApplication(sys.argv)
-w = AppWindow()
-w.show()
-sys.exit(app.exec_())
+2
+3
+4
+5
+6
+7
+8
+9
+	
+# theano
+import theano
+print('theano: %s' % theano.__version__)
+# tensorflow
+import tensorflow
+print('tensorflow: %s' % tensorflow.__version__)
+# keras
+import keras
+print('keras: %s' % keras.__version__)

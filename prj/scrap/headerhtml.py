@@ -1,9 +1,12 @@
-#https://developers.arcgis.com/python/
+# theano
+import theano
+print('theano: %s' % theano.__version__)
+# tensorflow
+import tensorflow
+print('tensorflow: %s' % tensorflow.__version__)
+# keras
+import keras
+print('keras: %s' % keras.__version__)
 
 
-from arcgis.gis import GIS
 
-# Create an anonymous connection to ArcGIS Online
-arcgis_online = GIS()
-hurricane_pts = arcgis_online.content.search("Hurricane_tracks_points AND owner:atma.mani", "Feature Layer")[0]
-hurricane_pts
